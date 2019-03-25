@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { Text, View, TouchableOpacity, FlatList } from 'react-native';
 
 import { Camera, Permissions, ImageManipulator } from 'expo';
-const console = require('console');
 
 const Clarifai = require('clarifai');
 
@@ -28,13 +27,15 @@ export default class LinksScreen extends React.Component {
   }
 
   capturePhoto = async () => {
+    console.log('in capture photo')
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
       return photo.uri;
     }
   };
 
-  resize = async photo => {
+  resize = async (photo) => {
+    console.log('in resize')
     let manipulatedImage = await ImageManipulator.manipulateAsync(
       photo,
       [{ resize: { height: 300, width: 300 } }],
@@ -43,7 +44,8 @@ export default class LinksScreen extends React.Component {
     return manipulatedImage.base64;
   };
 
-  predict = async image => {
+  predict = async (image) => {
+    console.log('in predict')
     let predictions = await clarifai.models.predict(
       Clarifai.GENERAL_MODEL,
       image
@@ -55,6 +57,7 @@ export default class LinksScreen extends React.Component {
     let photo = await this.capturePhoto();
     let resized = await this.resize(photo);
     let predictions = await this.predict(resized);
+    console.log(predictions)
     this.setState({ predictions: predictions.outputs[0].data.concepts });
   };
 
@@ -91,6 +94,7 @@ export default class LinksScreen extends React.Component {
                 alignItems: 'center',
               }}
             >
+            {/*
             <FlatList
               data={predictions.map(prediction => ({
                 key: `${prediction.name} ${prediction.value}`,
@@ -99,6 +103,7 @@ export default class LinksScreen extends React.Component {
                 <Text style={{ paddingLeft: 15, color: 'white', fontSize: 20 }}>{item.key}</Text>
               )}
             />
+              */}
           </View>
           <TouchableOpacity
             style={{

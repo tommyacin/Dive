@@ -12,6 +12,12 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+const translate = require('google-translate-api');
+let english = 'Hello World';
+let langs = {
+  to: 'fr'
+}
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -43,6 +49,18 @@ export default class HomeScreen extends React.Component {
 
             <Text style={styles.getStartedText}>
               Change this text and your app will automatically reload.
+            </Text>
+          </View>
+
+          <View>
+            <Text style={styles.getStartedText}>
+                {english}
+                French: {translate(english, langs).then(res => {
+                  console.log(res.text)
+                  console.log(res.from.language.iso);
+                }).catch(erro => {
+                  console.log(err);
+                })} 
             </Text>
           </View>
 
