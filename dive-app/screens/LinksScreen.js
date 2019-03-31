@@ -1,8 +1,8 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Text, View, TouchableOpacity, FlatList } from 'react-native';
-
-import { Camera, Permissions, ImageManipulator } from 'expo';
+import { StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Button } from 'react-native';
+import Modal from 'react-native-modal';
+import { Camera, Permissions, ImageManipulator, ImagePicker } from 'expo';
 
 const Clarifai = require('clarifai');
 
@@ -16,14 +16,44 @@ export default class LinksScreen extends React.Component {
     title: 'Camera',
   };
 
-  state = {
-    hasCameraPermission: null,
-    predictions: [],
-  };
+  constructor(props){
+    super(props);
+
+    this.state = {
+      hasCameraPermission: null,
+      predictions: [],
+      capturedImage: '',
+      fromLang: 'en',
+      toLang: 'es',
+      translatedLabel: '',
+      isModalVisible: false,
+    };
+  }
 
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+  _toggleModal = () =>
+  this.setState({ isModalVisible: !this.state.isModalVisible });
+
+  translate = async () => {
+    console.log('in translate')
+    console.log(this.state.predictions[0]);
+    //const query = this.state.predictions[0].name; //REMEMBER TO CHANGE
+    const query = this.state.predictions;
+    const from = this.state.fromLang;
+    const to = this.state.toLang;
+
+    fetch(`https://api.mymemory.translated.net/get?q=${query}&langpair=${from}|${to}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.responseData.translatedText);
+        this.setState({
+          translatedLabel: data.responseData.translatedText
+        })
+      });
   }
 
   capturePhoto = async () => {
@@ -41,7 +71,7 @@ export default class LinksScreen extends React.Component {
       [{ resize: { height: 300, width: 300 } }],
       { base64: true }
     );
-    return manipulatedImage.base64;
+    return manipulatedImage;
   };
 
   predict = async (image) => {
@@ -55,10 +85,19 @@ export default class LinksScreen extends React.Component {
 
   objectDetection = async () => {
     let photo = await this.capturePhoto();
+    //let photo = await ImagePicker.launchCameraAsync();
     let resized = await this.resize(photo);
-    let predictions = await this.predict(resized);
-    console.log(predictions.outputs)
-    this.setState({ predictions: predictions.outputs[0].data.concepts });
+    //console.log(resized)
+    //let predictions = await this.predict(resized.base64);
+    //console.log(predictions.outputs)
+    this.setState({
+      //predictions: predictions.outputs[0].data.concepts,
+      predictions: 'dog',
+      capturedImage: resized.uri,
+      translatedLabel: 'perro',
+    })
+    //this.translate();
+    this._toggleModal();
   };
 
   render() {
@@ -94,16 +133,9 @@ export default class LinksScreen extends React.Component {
                 alignItems: 'center',
               }}
             >
-            {/*
-            <FlatList
-              data={predictions.map(prediction => ({
-                key: `${prediction.name} ${prediction.value}`,
-              }))}
-              renderItem={({ item }) => (
-                <Text style={{ paddingLeft: 15, color: 'white', fontSize: 20 }}>{item.key}</Text>
-              )}
-            />
-              */}
+          </View>
+          <View>
+            <Text>{this.state.translatedWord}</Text>
           </View>
           <TouchableOpacity
             style={{
@@ -121,6 +153,14 @@ export default class LinksScreen extends React.Component {
           </TouchableOpacity>
             </View>
           </Camera>
+          <Modal isVisible={this.state.isModalVisible} backdropOpacity={0.8}>
+            <View style={{flex: 1}}>
+              <Image source={{uri: this.state.capturedImage}} style={{height: 500, width: 300}}></Image>
+              <Text style={styles.getStartedText}>{this.state.translatedLabel}</Text>
+              <Button title="Add to Dictionary" onPress={this._toggleModal}></Button>
+              <Button title="Close" onPress={this._toggleModal}></Button>
+            </View>
+          </Modal>
           </View>
         );
       }
@@ -144,5 +184,11 @@ const styles = StyleSheet.create({
     color: 'red',
     padding: 15,
     margin: 45
-  }
+  },
+  getStartedText: {
+    fontSize: 17,
+    color: 'rgba(96,100,109, 1)',
+    lineHeight: 24,
+    textAlign: 'center',
+  },
 });
