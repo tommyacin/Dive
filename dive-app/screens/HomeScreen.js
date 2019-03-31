@@ -10,12 +10,27 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
+import { Translate } from '@google-cloud/translate'
+const projectID = 'dive-236004';
+const translate = new Translate({
+  projectID: projectID,
+});
+const text = 'Hello World';
+const to = 'fr';
+
 import { MonoText } from '../components/StyledText';
 
-const translate = require('google-translate-api');
-let english = 'Hello World';
-let langs = {
-  to: 'fr'
+translation = async (text, to) => {
+  console.log('in translate');
+  translate.translate(text, to)
+  .then(results => {
+    const res = results[0];
+    console.log(text);
+    console.log(res);
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 export default class HomeScreen extends React.Component {
@@ -54,13 +69,7 @@ export default class HomeScreen extends React.Component {
 
           <View>
             <Text style={styles.getStartedText}>
-                {english}
-                French: {translate(english, langs).then(res => {
-                  console.log(res.text)
-                  console.log(res.from.language.iso);
-                }).catch(erro => {
-                  console.log(err);
-                })} 
+                {this.translation(text, to)}
             </Text>
           </View>
 

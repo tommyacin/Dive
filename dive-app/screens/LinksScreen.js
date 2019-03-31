@@ -57,7 +57,7 @@ export default class LinksScreen extends React.Component {
     let photo = await this.capturePhoto();
     let resized = await this.resize(photo);
     let predictions = await this.predict(resized);
-    console.log(predictions)
+    console.log(predictions.outputs)
     this.setState({ predictions: predictions.outputs[0].data.concepts });
   };
 
