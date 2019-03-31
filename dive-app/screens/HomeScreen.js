@@ -7,9 +7,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Button,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
+/*
 import { Translate } from '@google-cloud/translate'
 const projectID = 'dive-236004';
 const translate = new Translate({
@@ -17,9 +19,11 @@ const translate = new Translate({
 });
 const text = 'Hello World';
 const to = 'fr';
+*/
 
 import { MonoText } from '../components/StyledText';
 
+/*
 translation = async (text, to) => {
   console.log('in translate');
   translate.translate(text, to)
@@ -32,11 +36,35 @@ translation = async (text, to) => {
     console.log(err);
   })
 }
+*/
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      word: '',
+    }
+  }
+
+  translate = () => {
+    console.log('in translate');
+    const query = 'cat';
+    const target = 'es';
+
+    fetch(`https://api.mymemory.translated.net/get?q=${query}&langpair=en|${target}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.responseData.translatedText);
+        this.setState({
+          word: data.responseData.translatedText
+        })
+      });
+  }
 
   render() {
     return (
@@ -68,9 +96,8 @@ export default class HomeScreen extends React.Component {
           </View>
 
           <View>
-            <Text style={styles.getStartedText}>
-                {this.translation(text, to)}
-            </Text>
+              <Button title="Translate" onPress={this.translate}></Button>
+              <Text>{this.state.word}</Text>
           </View>
 
           <View style={styles.helpContainer}>
