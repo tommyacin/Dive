@@ -1,14 +1,18 @@
 import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import { StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, Button, Picker } from 'react-native';
+import Modal from 'react-native-modal';
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
-    title: 'app.json',
+    title: 'Settings',
   };
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-     * content, we just wanted to give you a quick view of your config */
-    return <ExpoConfigView />;
+    return (
+      <View>
+        <Text>Hello World!</Text>
+      </View>
+    );
   }
 }

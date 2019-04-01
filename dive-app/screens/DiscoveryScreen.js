@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Text, View, TouchableOpacity, Image, Button } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Button, Picker } from 'react-native';
 import Modal from 'react-native-modal';
-import { Camera, Permissions, ImageManipulator, ImagePicker } from 'expo';
+import { Camera, Permissions, ImageManipulator } from 'expo';
 
 const Clarifai = require('clarifai');
 
@@ -11,10 +11,10 @@ const clarifai = new Clarifai.App({
 });
 process.nextTick = setImmediate;
 
-export default class LinksScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Camera',
-  };
+export default class DiscoveryScreen extends React.Component {
+    static navigationOptions = {
+        title: 'app.json',
+    };
 
   constructor(props){
     super(props);
@@ -24,9 +24,10 @@ export default class LinksScreen extends React.Component {
       predictions: [],
       capturedImage: '',
       fromLang: 'en',
-      toLang: 'fr',
+      toLang: 'es',
       translatedLabel: '',
-      isModalVisible: false,
+      isImageModalVisible: false,
+      isLanguageModalVisible: false,
     };
   }
 
@@ -35,9 +36,13 @@ export default class LinksScreen extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-  _toggleModal = () =>
-  this.setState({ isModalVisible: !this.state.isModalVisible });
+  toggleImageModal = () => {
+    this.setState({ isImageModalVisible: !this.state.isImageModalVisible });
+  }
 
+  toggleLanguageModal = () => {
+    this.setState({ isLanguageModalVisible: !this.state.isLanguageModalVisible });
+  }
   translate = async () => {
     console.log('in translate')
     console.log(this.state.predictions[0]);
@@ -96,8 +101,9 @@ export default class LinksScreen extends React.Component {
       capturedImage: resized.uri,
       translatedLabel: 'perro',
     })
+    //console.log(this.state.toLang);
     //this.translate();
-    this._toggleModal();
+    this.toggleImageModal();
   };
 
   render() {
@@ -111,6 +117,19 @@ export default class LinksScreen extends React.Component {
       else {
         return (
           <View style={{ flex: 1 }}>
+            <TouchableOpacity
+              style={{
+                flex: 0.1,
+                alignItems: 'center',
+                backgroundColor: 'blue',
+                height: '10%',
+              }}
+              onPress={this.toggleLanguageModal}
+            >
+              <Text style={{ fontSize: 30, color: 'white', padding: 15 }}>
+                {' '}Change Language{' '}
+              </Text>
+            </TouchableOpacity>
             <Camera
               ref={ref => {
                 this.camera = ref;
@@ -134,9 +153,6 @@ export default class LinksScreen extends React.Component {
               }}
             >
           </View>
-          <View>
-            <Text>{this.state.translatedWord}</Text>
-          </View>
           <TouchableOpacity
             style={{
               flex: 0.1,
@@ -153,14 +169,28 @@ export default class LinksScreen extends React.Component {
           </TouchableOpacity>
             </View>
           </Camera>
-          <Modal isVisible={this.state.isModalVisible} backdropOpacity={0.8}>
-            <View style={{flex: 1}}>
-              <Image source={{uri: this.state.capturedImage}} style={{height: 500, width: 300}}></Image>
-              <Text style={styles.getStartedText}>{this.state.translatedLabel}</Text>
-              <Button title="Add to Dictionary" onPress={this._toggleModal}></Button>
-              <Button title="Close" onPress={this._toggleModal}></Button>
-            </View>
-          </Modal>
+          <Modal isVisible={this.state.isImageModalVisible} backdropOpacity={0.8}>
+              <View style={{flex: 1}}>
+                <Image source={{uri: this.state.capturedImage}} style={{height: 500, width: 300}}></Image>
+                <Text style={styles.getStartedText}>{this.state.translatedLabel}</Text>
+                <Button title="Add to Dictionary (change onPress)" onPress={this.toggleImageModal}></Button>
+                <Button title="Close" onPress={this.toggleImageModal}></Button>
+              </View>
+            </Modal>
+            <Modal isVisible={this.state.isLanguageModalVisible} backdropOpacity={0.5}>
+              <View style={{flex: 1, backgroundColor:'#fff'}}>
+                <Picker
+                  style={{width:'100%'}}
+                  selectedValue={this.state.toLang}
+                  onValueChange={(itemValue) => this.setState({toLang: itemValue})}
+                >
+                  <Picker.Item label="Spanish" value="es" />
+                  <Picker.Item label="French" value="fr" />
+                  <Picker.Item label="Italian" value="it" />
+                </Picker>
+                <Button title="Close" onPress={this.toggleLanguageModal}></Button>
+              </View>
+            </Modal>
           </View>
         );
       }

@@ -1,41 +1,69 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { Icon } from 'react-native-vector-icons/Ionicons';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import DiscoveryScreen from '../screens/DiscoveryScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import DictionaryScreen from "../screens/DictionaryScreen"
+import ChallengesScreen from "../screens/ChallengesScreen"
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const ProfileStack = createStackNavigator({
+  Profile: ProfileScreen,
 });
 
-HomeStack.navigationOptions = {
+ProfileStack.navigationOptions = {
   tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name='ios-person'
+      size={24}
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+const ChallengesStack = createStackNavigator({
+  Challenges: ChallengesScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Camera',
+ChallengesStack.navigationOptions = {
+  tabBarLabel: 'Leaderboard',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
-    />
+      name='ios-trophy'
+      size={24}    />
+  ),
+};
+
+const DiscoveryStack = createStackNavigator({
+  Discovery: DiscoveryScreen,
+});
+
+DiscoveryStack.navigationOptions = {
+  tabBarLabel: 'Discovery',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name='ios-camera'
+      size={24}    />
+  ),
+};
+
+const DictionaryStack = createStackNavigator({
+  Dictionary: DictionaryScreen,
+});
+
+DictionaryStack.navigationOptions = {
+  tabBarLabel: 'Dictionary',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name='ios-book'
+      size={24}    />
   ),
 };
 
@@ -44,17 +72,19 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'My Dictionary',
+  tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-    />
+      name='ios-globe'
+      size={24}    />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  ProfileStack,
+  ChallengesStack,
+  DiscoveryStack,
+  DictionaryStack,
   SettingsStack,
 });
