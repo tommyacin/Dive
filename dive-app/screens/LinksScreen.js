@@ -24,7 +24,7 @@ export default class LinksScreen extends React.Component {
       predictions: [],
       capturedImage: '',
       fromLang: 'en',
-      toLang: 'es',
+      toLang: 'fr',
       translatedLabel: '',
       isModalVisible: false,
     };
