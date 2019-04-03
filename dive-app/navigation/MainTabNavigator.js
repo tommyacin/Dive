@@ -4,6 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import { Icon } from 'react-native-vector-icons/Ionicons';
 
 import TabBarIcon from '../components/TabBarIcon';
+
 import SettingsScreen from '../screens/SettingsScreen';
 import DiscoveryScreen from '../screens/DiscoveryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -30,12 +31,13 @@ const ChallengesStack = createStackNavigator({
 });
 
 ChallengesStack.navigationOptions = {
-  tabBarLabel: 'Leaderboard',
+  tabBarLabel: 'Challenges',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name='ios-trophy'
-      size={24}    />
+      size={24}
+    />
   ),
 };
 
@@ -49,7 +51,8 @@ DiscoveryStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name='ios-camera'
-      size={24}    />
+      size={24}
+    />
   ),
 };
 
@@ -63,7 +66,8 @@ DictionaryStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name='ios-book'
-      size={24}    />
+      size={24}
+    />
   ),
 };
 
@@ -77,14 +81,21 @@ SettingsStack.navigationOptions = {
     <TabBarIcon
       focused={focused}
       name='ios-globe'
-      size={24}    />
+      size={24}
+    />
   ),
 };
 
 export default createBottomTabNavigator({
-  ProfileStack,
+  //ProfileStack,
   ChallengesStack,
   DiscoveryStack,
   DictionaryStack,
-  SettingsStack,
+  //SettingsStack,
+},
+{
+  tabBarOptions: {
+    //ADD NAV BAR STYLING HERE
+  },
+  initialRouteName: 'ChallengesStack'
 });
