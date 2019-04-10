@@ -13,23 +13,11 @@ import ProgressBar from 'react-native-progress/Bar'
 import { Icon } from 'expo';
 import { Color } from '../assets/Colors';
 
-export default class Challenge extends React.Component {
+export default class DictionaryItem extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Icon.Ionicons
-          name={this.props.name}
-          size={100}
-        />
-        <View style={styles.infoContainer}>
-          <View>
-            <Text>{this.props.title}</Text>
-          </View>
-          <ProgressBar progress={this.props.progress} />
-          <View>
-            <Text>Points: {this.props.points}</Text>
-          </View>
-        </View>
+        <Text>Hello World</Text>
       </View>
     );
   }
@@ -39,11 +27,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderBottomColor: Color.darkBlack,
+    borderBottomColor: Color.black,
     borderBottomWidth: 5,
     width: '100%'
   },
-  infoContainer: {
-    flexDirection: 'column'
-  }
 });

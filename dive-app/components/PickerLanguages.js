@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import { Color } from '../assets/Colors';
 
-export default class PickerLanguages extends React.Component {
+export default class PickerLanguages extends React.Component { 
   render() {
     return (
-      <View>
+      <>
         <Picker.Item label="Spanish" value="es" />
         <Picker.Item label="French" value="fr" />
         <Picker.Item label="Italian" value="it" />
@@ -22,7 +22,7 @@ export default class PickerLanguages extends React.Component {
         <Picker.Item label="Portuguese" value="pt" />
         <Picker.Item label="Japanese" value="ja" />
         <Picker.Item label="Chinese (Simplified)" value="zh" />
-      </View>
+      </>
     );
   }
 }

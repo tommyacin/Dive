@@ -12,9 +12,11 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import { Camera, Permissions, ImageManipulator, Icon } from 'expo';
+import { Speech } from 'react-native-speech';
+import Tts from 'react-native-tts';
 
-//import PickerLanguages from '../components/PickerLanguages'; PROBABLY NEED TO REMOVE
 import { Color } from '../assets/Colors';
+import PickerLanguages from '../components/PickerLanguages'; 
 
 const Clarifai = require('clarifai');
 const clarifai = new Clarifai.App({
@@ -45,6 +47,8 @@ export default class DiscoveryScreen extends React.Component {
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
+    Tts.setDefaultLanguage('en-US');
+    Tts.speak('Hello, World!');
   }
 
   toggleImageModal = () => {
@@ -126,73 +130,53 @@ export default class DiscoveryScreen extends React.Component {
     }
     else {
       return (
-        <SafeAreaView style={{ flex: 1 }}>
-          <View>
-            <StatusBar backgroundColor={Color.lightBlue} barStyle="dark-content" translucent={true} />
-          </View>
-          <View 
-            style={{
-              backgroundColor: Color.lightBlue,
-              flexDirection: 'row-reverse',
-              alignItems: 'flex-end',
-              justifyContent: 'space-between'
-              }}
-          >
-            <Icon.Ionicons
-              name='ios-globe'
-              size={40}
-              onPress={this.toggleLanguageModal}
-            />
-          </View>
-				  <Camera
-            ref={ref => {
-            this.camera = ref;
-            }}
-            style={{ flex: 1 }}
+        <SafeAreaView style={styles.container}>
+          <StatusBar hidden={false} barStyle='light-content' />
+          <Camera
+            ref={ref => {this.camera = ref;}}
             type={this.state.type}
+            style={styles.camera}
 				  >
+            <View 
+              style={{
+                flexDirection: 'row-reverse',
+                alignItems: 'flex-end',
+                justifyContent: 'space-between'
+                }}
+            >
+              <Icon.Ionicons
+                name='ios-globe'
+                size={50}
+                onPress={this.toggleLanguageModal}
+                color={Color.white}
+              />
+            </View>
             <View
               style={{
                 flex: 1,
-                backgroundColor: 'transparent',
                 flexDirection: 'column',
+                alignItems: 'center',
                 justifyContent: 'flex-end'
               }}
-            >
-              <TouchableOpacity
-                style={{
-                  flex: 0.1,
-                  alignItems: 'center',
-                  backgroundColor: Color.lightBlue,
-                  height: '10%',
-                }}
+            > 
+              <Icon.Ionicons
+                name='ios-radio-button-on'
+                size={75}
                 onPress={this.objectDetection}
-              >
-                <Text style={{ fontSize: 30, color: 'black', padding: 15 }}>
-                {' '}
-                Detect Objects{' '}
-                </Text>
-              </TouchableOpacity>
+                color={Color.white}
+              />
 					  </View>
           </Camera>
-          <Modal
-            isVisible={this.state.isImageModalVisible}
-            backdropOpacity={0.8}
-          >
-            <View style={{flex: 1}}>
-              <Image source={{uri: this.state.capturedImage}} style={{height: 500, width: 300}}></Image>
-              <Text style={styles.getStartedText}>{this.state.translatedLabel}</Text>
+          <Modal isVisible={this.state.isImageModalVisible} backdropOpacity={0.8}>
+            <View style={styles.imageModal}>
+              <Image source={{uri: this.state.capturedImage}} style={{height: '80%', width: '90%'}}></Image>
+              <Text style={styles.labelText}>{this.state.translatedLabel}</Text>
               <Button title="Add to Dictionary (change onPress)" onPress={this.toggleImageModal}></Button>
               <Button title="Close" onPress={this.toggleImageModal}></Button>
             </View>
           </Modal>
           <Modal isVisible={this.state.isLanguageModalVisible} backdropOpacity={0.5}>
-            <View style={{
-                    flex: 1,
-                    backgroundColor: Color.lightBlue,
-                    justifyContent: 'center',
-                    borderRadius: '15'
-                  }}>
+            <View style={styles.languageModal}>
               <Picker
                 style={{
                   width:'100%',
@@ -223,7 +207,11 @@ export default class DiscoveryScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: Color.darkBlack
+  },
+  camera: {
+    flex: 1
   },
   view: {
     flex: 1,
@@ -238,10 +226,21 @@ const styles = StyleSheet.create({
     padding: 15,
     margin: 45
   },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
+  imageModal: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  labelText: {
+    fontSize: 35,
+    color: Color.lightBlue,
+    lineHeight: 40,
     textAlign: 'center',
+  },
+  languageModal: {
+    flex: 1,
+    backgroundColor: Color.lightBlue,
+    justifyContent: 'center',
+    borderRadius: 15
   },
 });

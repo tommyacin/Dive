@@ -10,6 +10,7 @@ import DiscoveryScreen from '../screens/DiscoveryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DictionaryScreen from "../screens/DictionaryScreen"
 import ChallengesScreen from "../screens/ChallengesScreen"
+import { Color } from '../assets/Colors';
 
 const ProfileStack = createStackNavigator({
   Profile: ProfileScreen,
@@ -95,7 +96,10 @@ export default createBottomTabNavigator({
 },
 {
   tabBarOptions: {
-    //ADD NAV BAR STYLING HERE
+    activeTintColor: Color.darkBlue,
+    style: {
+      backgroundColor: Color.darkBlack
+    },
   },
-  initialRouteName: 'ChallengesStack'
+  initialRouteName: 'DiscoveryStack'
 });

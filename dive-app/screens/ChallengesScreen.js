@@ -25,8 +25,31 @@ export default class ChallengesScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View>
-          <StatusBar backgroundColor={Color.lightBlue} barStyle="dark-content" translucent={true} />
+        <View style={styles.profileContainer}>
+          <Icon.Ionicons
+            name='ios-person'
+            size={100}
+          />
+          <View style={styles.profileStatsContainer}>
+            <View>
+              <Text>Master</Text>
+            </View>
+            <ProgressBar progress={1/2} />
+            <View style={styles.profileLevelContainer}>
+              <Icon.Ionicons
+                name='ios-star'
+                size={25}
+              />
+              <Icon.Ionicons
+                name='ios-star'
+                size={25}
+              />
+              <Icon.Ionicons
+                name='ios-star'
+                size={25}
+              />
+            </View>
+          </View>
         </View>
         <View style={styles.subheaderContainer}>
           <Text style={styles.subheaderText}>Card Values</Text>
@@ -66,7 +89,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     borderBottomWidth: 0,
-    borderBottomColor: '#ffffff',
+    borderBottomColor: Color.white,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -75,8 +98,20 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 20,
   },
+  profileContainer: {
+    backgroundColor: Color.gray,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  profileStatsContainer: {
+    flexDirection: 'column'
+  },
+  profileLevelContainer: {
+    flexDirection: 'row'
+  },
   subheaderContainer: {
-    backgroundColor: Color.black,
+    backgroundColor: Color.darkBlack,
     width: '100%',
     alignItems: 'center',
   },
