@@ -17,19 +17,27 @@ export default class Challenge extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Icon.Ionicons
+
+        <Icon.Ionicons style={styles.challengeIcon}
           name={this.props.name}
           size={100}
+          color='purple'
         />
+
         <View style={styles.infoContainer}>
+
           <View>
-            <Text>{this.props.title}</Text>
+            <Text style={styles.challengeTitle}>{this.props.title}</Text>
           </View>
-          <ProgressBar progress={this.props.progress} />
+
+          <ProgressBar style={styles.progressBar} progress={this.props.progress} />
+
           <View>
-            <Text>Points: {this.props.points}</Text>
+            <Text style={styles.challengePoints}>Points: {this.props.points}</Text>
           </View>
+
         </View>
+
       </View>
     );
   }
@@ -39,11 +47,30 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderBottomColor: Color.darkBlack,
-    borderBottomWidth: 5,
-    width: '100%'
+    borderBottomColor: Color.white,
+    borderBottomWidth: 1,
+    width: '100%',
+    paddingLeft: 13,
   },
   infoContainer: {
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+    marginLeft: 24,
+    backgroundColor: 'transparent'
+  },
+  challengeTitle: {
+    fontSize: 30,
+    color: 'white',
+    marginTop: 10,
+  },
+  challengePoints: {
+    fontSize: 17,
+    color: 'white',
+    marginTop: 10,
+  },
+  progressBar: {
+    marginLeft: 15,
+    color: 'green',
+    marginTop: 10,
+    transform: [{ scaleX: 1.19 }, { scaleY: 1.25 }],
+  },
 });

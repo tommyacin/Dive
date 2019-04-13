@@ -12,8 +12,7 @@ import {
 import { Card } from 'react-native-elements'
 import Modal from 'react-native-modal';
 import { Icon } from 'expo';
-//import AtoZList from 'react-native-atoz-list';
-import AlphabestListView from 'react-native-alphabetlistview';
+
 
 import DictionaryItem from '../components/DictionaryItem';
 import { Color } from '../assets/Colors';
@@ -44,14 +43,7 @@ export default class DictionaryScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <AlphabestListView
-          data={Data}
-          cell={this._renderCellComponent}
-          sectionHeaderHeight={20}
-          cellHeight={10}
-        />
-        
+      <SafeAreaView style={styles.container}>        
       </SafeAreaView>
     );
   }
