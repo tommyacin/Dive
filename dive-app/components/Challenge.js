@@ -18,10 +18,9 @@ export default class Challenge extends React.Component {
     return (
       <View style={styles.container}>
 
-        <Icon.Ionicons style={styles.challengeIcon}
-          name={this.props.name}
-          size={100}
-          color='purple'
+        <Image style={styles.challengeIcon}
+          source={this.props.source}
+          //backgroundColor='purple'
         />
 
         <View style={styles.infoContainer}>
@@ -47,9 +46,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    borderBottomColor: Color.white,
-    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 0.25,
     width: '100%',
+    height: 80,
     paddingLeft: 13,
   },
   infoContainer: {
@@ -58,18 +58,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   challengeTitle: {
-    fontSize: 30,
-    color: 'white',
+    fontSize: 17,
+    color: 'black',
     marginTop: 10,
   },
   challengePoints: {
-    fontSize: 17,
-    color: 'white',
+    fontSize: 12,
+    color: 'black',
     marginTop: 10,
   },
   progressBar: {
     marginLeft: 15,
-    color: 'green',
+    backgroundColor: 'white',
     marginTop: 10,
     transform: [{ scaleX: 1.19 }, { scaleY: 1.25 }],
   },
