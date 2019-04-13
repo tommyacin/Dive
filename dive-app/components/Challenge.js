@@ -17,26 +17,18 @@ export default class Challenge extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
         <Image style={styles.challengeIcon}
           source={this.props.source}
-          //backgroundColor='purple'
         />
-
         <View style={styles.infoContainer}>
-
           <View>
             <Text style={styles.challengeTitle}>{this.props.title}</Text>
           </View>
-
           <ProgressBar style={styles.progressBar} progress={this.props.progress} />
-
           <View>
             <Text style={styles.challengePoints}>Points: {this.props.points}</Text>
           </View>
-
         </View>
-
       </View>
     );
   }

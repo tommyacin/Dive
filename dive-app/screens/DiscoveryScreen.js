@@ -11,9 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import { Camera, Permissions, ImageManipulator, Icon } from 'expo';
-// import { Speech } from 'react-native-speech';
-// import Tts from 'react-native-tts';
+import { Camera, Permissions, ImageManipulator, Icon, Speech } from 'expo';
 
 import { Color } from '../assets/Colors';
 import PickerLanguages from '../components/PickerLanguages'; 
@@ -47,8 +45,17 @@ export default class DiscoveryScreen extends React.Component {
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
-    Tts.setDefaultLanguage('en-US');
-    Tts.speak('Hello, World!');
+  }
+
+  speakTest = () => {
+    Speech.speak(
+      "Hola me quiero matar Hola me quiero matar Hola me quiero matar Hola me quiero matar",
+      {
+        language: 'es',
+        onStart: console.log('in speech start'),
+        onDone: console.log('in speech end')
+      } 
+    );
   }
 
   toggleImageModal = () => {
@@ -70,10 +77,7 @@ export default class DiscoveryScreen extends React.Component {
     fetch(`https://api.mymemory.translated.net/get?q=${query}&langpair=${from}|${to}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data.responseData.translatedText);
-        this.setState({
-          translatedLabel: data.responseData.translatedText
-        })
+        this.setState({translatedLabel: data.responseData.translatedText});
       });
   }
 
@@ -131,33 +135,28 @@ export default class DiscoveryScreen extends React.Component {
     else {
       return (
         <SafeAreaView style={styles.container}>
-          <StatusBar hidden={false} barStyle='light-content' />
+          <StatusBar barStyle='light-content' />
           <Camera
             ref={ref => {this.camera = ref;}}
             type={this.state.type}
             style={styles.camera}
 				  >
-            <View 
-              style={{
-                flexDirection: 'row-reverse',
-                alignItems: 'flex-end',
-                justifyContent: 'space-between'
-                }}
-            >
+            <View style={styles.globeIcon}>
               <Icon.Ionicons
                 name='ios-globe'
                 size={50}
                 onPress={this.toggleLanguageModal}
                 color={Color.white}
               />
+              <Icon.Ionicons
+                name='ios-volume-high'
+                size={50}
+                onPress={this.speakTest}
+                color={Color.white}
+              />
             </View>
             <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-end'
-              }}
+              style={styles.capture}
             > 
               <Icon.Ionicons
                 name='ios-radio-button-on'
@@ -167,22 +166,35 @@ export default class DiscoveryScreen extends React.Component {
               />
 					  </View>
           </Camera>
-          <Modal isVisible={this.state.isImageModalVisible} backdropOpacity={0.8}>
+          <Modal
+            isVisible={this.state.isImageModalVisible}
+            backdropOpacity={1}
+            animationInTiming={350}
+            animationOutTiming={350}
+          >
             <View style={styles.imageModal}>
-              <Image source={{uri: this.state.capturedImage}} style={{height: '80%', width: '90%'}}></Image>
+              <View style={styles.imageCloseIcon}>
+                <Icon.Ionicons
+                  name='ios-close'
+                  size={50}
+                  onPress={this.toggleImageModal}
+                  color={Color.white}
+                />
+              </View>
+              <Image source={{uri: this.state.capturedImage}} style={styles.capturedImage}></Image>
               <Text style={styles.labelText}>{this.state.translatedLabel}</Text>
-              <Button title="Add to Dictionary (change onPress)" onPress={this.toggleImageModal}></Button>
-              <Button title="Close" onPress={this.toggleImageModal}></Button>
             </View>
           </Modal>
-          <Modal isVisible={this.state.isLanguageModalVisible} backdropOpacity={0.5}>
+          <Modal
+            isVisible={this.state.isLanguageModalVisible}
+            backdropOpacity={0.5} 
+            animationInTiming={350}
+            animationOutTiming={350}
+          >
             <View style={styles.languageModal}>
               <Picker
-                style={{
-                  width:'100%',
-                  height: '40%',
-                  paddingBottom: '100%',
-                }}
+                style={styles.languagePicker}
+                itemStyle={styles.languagePickerItems}
                 selectedValue={this.state.toLang}
                 onValueChange={(itemValue) => this.setState({toLang: itemValue})}
               >
@@ -195,7 +207,12 @@ export default class DiscoveryScreen extends React.Component {
                 <Picker.Item label="Japanese" value="ja" />
                 <Picker.Item label="Chinese (Simplified)" value="zh" />
               </Picker>
-              <Button title="Close" onPress={this.toggleLanguageModal}></Button>
+              <Icon.Ionicons
+                name='ios-checkmark'
+                size={75}
+                onPress={this.toggleLanguageModal}
+                color={Color.white}
+              />
             </View>
           </Modal>
         </SafeAreaView>
@@ -213,23 +230,34 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1
   },
-  view: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+  globeIcon: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingEnd: 10
   },
   capture: {
-    flex: 0,
-    backgroundColor: 'steelblue',
-    borderRadius: 10,
-    color: 'red',
-    padding: 15,
-    margin: 45
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   },
   imageModal: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center'
+  },
+  imageCloseIcon: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  capturedImage: {
+    height: '85%',
+    width: '90%',
+    borderRadius: 15
   },
   labelText: {
     fontSize: 35,
@@ -238,9 +266,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   languageModal: {
-    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
     backgroundColor: Color.lightBlue,
     justifyContent: 'center',
-    borderRadius: 15
+    borderRadius: 15,
+  },
+  languagePicker: {
+    width:'100%',
+  },
+  languagePickerItems: {
+
   },
 });

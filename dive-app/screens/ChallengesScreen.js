@@ -28,22 +28,17 @@ export default class ChallengesScreen extends React.Component {
           style={styles.userImage}
           source={require('../assets/images/student.png')} 
           />
-
           <Image 
           style={styles.trophyImage}
           source={require('../assets/images/trophy.png')} 
-          />
-          
+          />         
           <View style={styles.profileStatsContainer}>
             <View>
-              <Text style={{fontSize:'21', color:'black'}}>Level: Master</Text>
+              <Text style={{fontSize:21, color:'black'}}>Level: Master</Text>
             </View>
             <ProgressBar style={styles.profileProgressBar} progress={1 / 2} />
-
-
-            
             <View>
-              <Text style={{fontSize:'14', color: 'black'}}>5,300/10,000</Text>
+              <Text style={{fontSize:14, color: 'black'}}>5,300/10,000</Text>
             </View>
             <View style={styles.profileLevelContainer}>
               <Icon.Ionicons
@@ -74,49 +69,40 @@ export default class ChallengesScreen extends React.Component {
             </View>
           </View>
         </View>
-
         <ScrollView indicatorStyle={'black'} style={styles.ScrollViewContainer}>
           <View style={styles.subheaderContainer1}>
             <Text style={styles.subheaderText}>Daily Challenges</Text>
           </View>
-
           <Challenge
             source= {require('../assets/images/squirrel.png')}
             title='Find 3 animals'
-            progress={2 / 5}
+            progress={2/5}
             points={100}
           />
           <Challenge
             source= {require('../assets/images/addFriend.png')}
             title='Add a friend'
-            progress={0 / 10}
+            progress={0/10}
             points={500}
-            // width={30}
-            // height={30}
-
           />
-
           <Challenge
             source= {require('../assets/images/convertible.png')}
             title='Find 5 vehicles'
-            progress={2 / 3}
+            progress={2/3}
             points={200}
           />
-
           <Challenge
             source= {require('../assets/images/broccoli.png')}
             title='Find 7 vegetables'
-            progress={3 / 10}
+            progress={3/10}
             points={400}
           />
-
           <Challenge
             source= {require('../assets/images/pineapple.png')}
             title='Find 7 fruits'
-            progress={5 / 7}
+            progress={5/7}
             points={400}
           />
-
           <View style={styles.subheaderContainer2}>
             <Text style={styles.subheaderText}>Lifetime Challenges</Text>
           </View>
@@ -219,11 +205,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     // paddingTop: 10,
     // fontFamily: 'AlNile-Bold'
-
     //fontFamily: 'AppleSDGothicNeo-Medium'
-
     fontFamily: 'Arial Rounded MT Bold',
-    
   },
   ScrollViewContainer: {
     flex: 1,
