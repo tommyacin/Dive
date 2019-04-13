@@ -1,13 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import {
   Text,
   View,
-  TouchableOpacity,
-  Image,
-  Button,
-  StatusBar,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import { Card } from 'react-native-elements'
 import Modal from 'react-native-modal';
@@ -26,55 +23,129 @@ export default class ChallengesScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.profileContainer}>
-          <Icon.Ionicons
-            name='ios-person'
-            size={100}
+
+          <Image 
+          style={styles.userImage}
+          source={require('../assets/images/student.png')} 
           />
+
+          <Image 
+          style={styles.trophyImage}
+          source={require('../assets/images/trophy.png')} 
+          />
+          
           <View style={styles.profileStatsContainer}>
             <View>
-              <Text>Master</Text>
+              <Text style={{fontSize:'21', color:'black'}}>Level: Master</Text>
             </View>
-            <ProgressBar progress={1/2} />
+            <ProgressBar style={styles.profileProgressBar} progress={1 / 2} />
+
+
+            
+            <View>
+              <Text style={{fontSize:'14', color: 'black'}}>5,300/10,000</Text>
+            </View>
             <View style={styles.profileLevelContainer}>
               <Icon.Ionicons
                 name='ios-star'
-                size={25}
+                size={30}
+                color='yellow'
               />
               <Icon.Ionicons
                 name='ios-star'
-                size={25}
+                size={30}
+                color='yellow'
               />
               <Icon.Ionicons
                 name='ios-star'
-                size={25}
+                size={30}
+                color='yellow'
+              />
+              <Icon.Ionicons
+                name='ios-star'
+                size={30}
+                color='yellow'
+              />
+              <Icon.Ionicons
+                name='ios-star'
+                size={30}
+                color='yellow'
               />
             </View>
           </View>
         </View>
-        <View style={styles.subheaderContainer}>
-          <Text style={styles.subheaderText}>Card Values</Text>
-        </View>
-        <View style={styles.subheaderContainer}>
-          <Text style={styles.subheaderText}>Weekly Challenges</Text>
-        </View>
-        <Challenge
-          name='ios-football'
-          title='Find 5 sports balls'
-          progress={2/5}
-          points={100}
-        />
-        <Challenge
-          name='ios-car'
-          title='Find 3 vehicles'
-          progress={2/3}
-          points={200}
-        />
-        <Challenge
-          name='ios-hammer'
-          title='Find 8 tools'
-          progress={0.25}
-          points={300}
-        />
+
+        <ScrollView indicatorStyle={'black'} style={styles.ScrollViewContainer}>
+          <View style={styles.subheaderContainer1}>
+            <Text style={styles.subheaderText}>Daily Challenges</Text>
+          </View>
+
+          <Challenge
+            source= {require('../assets/images/squirrel.png')}
+            title='Find 3 animals'
+            progress={2 / 5}
+            points={100}
+          />
+          <Challenge
+            source= {require('../assets/images/addFriend.png')}
+            title='Add a friend'
+            progress={0 / 10}
+            points={500}
+            // width={30}
+            // height={30}
+
+          />
+
+          <Challenge
+            source= {require('../assets/images/convertible.png')}
+            title='Find 5 vehicles'
+            progress={2 / 3}
+            points={200}
+          />
+
+          <Challenge
+            source= {require('../assets/images/broccoli.png')}
+            title='Find 7 vegetables'
+            progress={3 / 10}
+            points={400}
+          />
+
+          <Challenge
+            source= {require('../assets/images/pineapple.png')}
+            title='Find 7 fruits'
+            progress={5 / 7}
+            points={400}
+          />
+
+          <View style={styles.subheaderContainer2}>
+            <Text style={styles.subheaderText}>Lifetime Challenges</Text>
+          </View>
+          <Challenge
+            source= {require('../assets/images/camera.png')}
+            title='Find 300 objects'
+            progress={0.65}
+            points={3000}
+          />
+          <Challenge
+            source= {require('../assets/images/alien.png')}
+            title='Find 2 aliens'
+            progress={1 / 2}
+            points={5000}
+          />
+          <Challenge
+            source= {require('../assets/images/addFriend.png')}
+            title='Add 50 friends'
+            progress={25 / 50}
+            points={5000}
+          />
+          <Challenge
+            source= {require('../assets/images/exam.png')}
+            title='Ace 50 quizzes'
+            progress={30 / 50}
+            points={5000}
+          />
+        </ScrollView>
+
       </SafeAreaView>
     );
   }
@@ -84,12 +155,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: Color.gray
+    backgroundColor: Color.white,
   },
   header: {
     height: 60,
     borderBottomWidth: 0,
-    borderBottomColor: Color.white,
+    borderBottomColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -99,27 +170,63 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   profileContainer: {
-    backgroundColor: Color.gray,
+    backgroundColor: Color.white,
     width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-start',
+    paddingLeft: 13,
+    borderBottomWidth: 0.35,
+    borderBottomColor: 'grey',
   },
   profileStatsContainer: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    paddingTop: 14,
+    marginLeft: 24,
+  },
+  profileProgressBar: {
+    marginLeft: 15,
+    color: 'green',
+    transform: [{ scaleX: 1.19 }, { scaleY: 1.25 }],
   },
   profileLevelContainer: {
     flexDirection: 'row'
   },
-  subheaderContainer: {
-    backgroundColor: Color.darkBlack,
+  userImage: {
+    width: 85, 
+    height: 85, 
+    marginLeft: 10,
+  },
+  trophyImage: {
+    width: 85, 
+    height: 85, 
+    position: 'absolute', 
+    right: 11,
+  },
+  subheaderContainer1: {
+    backgroundColor: '#FFBA49',
+    width: '100%',
+    alignItems: 'center',
+  },
+  subheaderContainer2: {
+    backgroundColor: '#2BD9FE',
     width: '100%',
     alignItems: 'center',
   },
   subheaderText: {
-    color: Color.lightBlue,
-    fontWeight: '500',
-    fontSize: 20,
+    color: Color.white,
+    fontSize: 35,
     marginTop: 5,
     marginBottom: 5,
+    // paddingTop: 10,
+    // fontFamily: 'AlNile-Bold'
+
+    //fontFamily: 'AppleSDGothicNeo-Medium'
+
+    fontFamily: 'Arial Rounded MT Bold',
+    
   },
+  ScrollViewContainer: {
+    flex: 1,
+    width: '100%',
+  }
 });

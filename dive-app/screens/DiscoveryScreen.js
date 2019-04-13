@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import { Camera, Permissions, ImageManipulator, Icon } from 'expo';
-import { Speech } from 'react-native-speech';
-import Tts from 'react-native-tts';
+// import { Speech } from 'react-native-speech';
+// import Tts from 'react-native-tts';
 
 import { Color } from '../assets/Colors';
 import PickerLanguages from '../components/PickerLanguages'; 
