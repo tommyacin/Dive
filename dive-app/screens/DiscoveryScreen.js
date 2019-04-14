@@ -47,23 +47,22 @@ export default class DiscoveryScreen extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-  speakTest = () => {
-    Speech.speak(
-      "Hola me quiero matar Hola me quiero matar Hola me quiero matar Hola me quiero matar",
-      {
-        language: 'es',
-        onStart: console.log('in speech start'),
-        onDone: console.log('in speech end')
-      } 
-    );
-  }
-
   toggleImageModal = () => {
     this.setState({ isImageModalVisible: !this.state.isImageModalVisible });
   }
 
   toggleLanguageModal = () => {
     this.setState({ isLanguageModalVisible: !this.state.isLanguageModalVisible });
+  }
+
+  pronounce = () => {
+    Speech.speak(
+      text=this.state.translatedLabel,
+      options={
+        language: this.state.toLang,
+        rate: 0.6
+      }
+    );
   }
 
   translate = async () => {
@@ -113,12 +112,11 @@ export default class DiscoveryScreen extends React.Component {
     let photo = await this.capturePhoto();
     let resized = await this.resize(photo);
     //let predictions = await this.predict(resized.base64);
-    //console.log(predictions.outputs)
     this.setState({
       //predictions: predictions.outputs[0].data.concepts,
-      predictions: 'dog',
+      predictions: 'computer',
       capturedImage: resized.uri,
-      translatedLabel: 'perro',
+      translatedLabel: 'ordenador',
     })
     //this.translate();
     this.toggleImageModal();
@@ -146,12 +144,6 @@ export default class DiscoveryScreen extends React.Component {
                 name='ios-globe'
                 size={50}
                 onPress={this.toggleLanguageModal}
-                color={Color.white}
-              />
-              <Icon.Ionicons
-                name='ios-volume-high'
-                size={50}
-                onPress={this.speakTest}
                 color={Color.white}
               />
             </View>
@@ -182,7 +174,15 @@ export default class DiscoveryScreen extends React.Component {
                 />
               </View>
               <Image source={{uri: this.state.capturedImage}} style={styles.capturedImage}></Image>
-              <Text style={styles.labelText}>{this.state.translatedLabel}</Text>
+              <View style={styles.labelContainer}>
+                <Text style={styles.labelText}>{this.state.translatedLabel}</Text>
+                <Icon.Ionicons
+                  name='ios-volume-high'
+                  size={50}
+                  onPress={this.pronounce}
+                  color={Color.white}
+                />
+              </View>
             </View>
           </Modal>
           <Modal
@@ -259,11 +259,15 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: 15
   },
+  labelContainer: {
+    flexDirection: 'row'
+  },
   labelText: {
     fontSize: 35,
     color: Color.lightBlue,
     lineHeight: 40,
     textAlign: 'center',
+    marginRight: 40
   },
   languageModal: {
     flexDirection: 'column',

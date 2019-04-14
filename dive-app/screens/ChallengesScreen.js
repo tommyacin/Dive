@@ -5,9 +5,8 @@ import {
   View,
   SafeAreaView,
   Image,
+  StatusBar
 } from 'react-native';
-import { Card } from 'react-native-elements'
-import Modal from 'react-native-modal';
 import ProgressBar from 'react-native-progress/Bar'
 import { Icon } from 'expo';
 
@@ -22,23 +21,19 @@ export default class ChallengesScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
+        <StatusBar barStyle='light-content' />
         <View style={styles.profileContainer}>
-
           <Image 
-          style={styles.userImage}
-          source={require('../assets/images/student.png')} 
-          />
-          <Image 
-          style={styles.trophyImage}
-          source={require('../assets/images/trophy.png')} 
-          />         
+            style={styles.userImage}
+            source={require('../assets/images/student.png')} 
+          />        
           <View style={styles.profileStatsContainer}>
             <View>
               <Text style={{fontSize:21, color:'black'}}>Level: Master</Text>
             </View>
-            <ProgressBar style={styles.profileProgressBar} progress={1 / 2} />
+            <ProgressBar style={styles.profileProgressBar} progress={1/2} />
             <View>
-              <Text style={{fontSize:14, color: 'black'}}>5,300/10,000</Text>
+              <Text style={{fontSize:14, color: 'black'}}>5,000/10,000</Text>
             </View>
             <View style={styles.profileLevelContainer}>
               <Icon.Ionicons
@@ -68,6 +63,10 @@ export default class ChallengesScreen extends React.Component {
               />
             </View>
           </View>
+          <Image 
+            style={styles.trophyImage}
+            source={require('../assets/images/trophy.png')} 
+          /> 
         </View>
         <ScrollView indicatorStyle={'black'} style={styles.ScrollViewContainer}>
           <View style={styles.subheaderContainer1}>
@@ -131,7 +130,6 @@ export default class ChallengesScreen extends React.Component {
             points={5000}
           />
         </ScrollView>
-
       </SafeAreaView>
     );
   }
@@ -141,7 +139,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: Color.white,
+    backgroundColor: Color.darkBlack,
   },
   header: {
     height: 60,
@@ -159,34 +157,31 @@ const styles = StyleSheet.create({
     backgroundColor: Color.white,
     width: '100%',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingLeft: 13,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderBottomWidth: 0.35,
     borderBottomColor: 'grey',
+    paddingTop: 10
   },
   profileStatsContainer: {
     flexDirection: 'column',
-    paddingTop: 14,
-    marginLeft: 24,
   },
   profileProgressBar: {
-    marginLeft: 15,
     color: 'green',
-    transform: [{ scaleX: 1.19 }, { scaleY: 1.25 }],
+    transform: [{ scaleX: 1.0 }, { scaleY: 1.25 }],
   },
   profileLevelContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   userImage: {
-    width: 85, 
-    height: 85, 
+    width: 70, 
+    height: 70, 
     marginLeft: 10,
   },
   trophyImage: {
     width: 85, 
     height: 85, 
-    position: 'absolute', 
-    right: 11,
   },
   subheaderContainer1: {
     backgroundColor: '#FFBA49',
@@ -203,13 +198,14 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginTop: 5,
     marginBottom: 5,
-    // paddingTop: 10,
-    // fontFamily: 'AlNile-Bold'
+    //paddingTop: 10,
+    //fontFamily: 'AlNile-Bold'
     //fontFamily: 'AppleSDGothicNeo-Medium'
     fontFamily: 'Arial Rounded MT Bold',
   },
   ScrollViewContainer: {
     flex: 1,
     width: '100%',
+    backgroundColor: Color.white
   }
 });
