@@ -43,7 +43,8 @@ export default class DictionaryScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>        
+      <SafeAreaView style={styles.container}> 
+        <StatusBar barStyle='light-content' />       
       </SafeAreaView>
     );
   }
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: Color.gray,
-    width: '100%'
+    backgroundColor: Color.darkBlack,
+    width: '100%',
   },
   listContainer: {
     width: '100%'

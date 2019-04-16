@@ -60,7 +60,7 @@ export default class DiscoveryScreen extends React.Component {
       text=this.state.translatedLabel,
       options={
         language: this.state.toLang,
-        rate: 0.6
+        rate: 0.7
       }
     );
   }
@@ -111,12 +111,12 @@ export default class DiscoveryScreen extends React.Component {
     this.setState({ translatedLabel: '' });
     let photo = await this.capturePhoto();
     let resized = await this.resize(photo);
-    //let predictions = await this.predict(resized.base64);
+    let predictions = await this.predict(resized.base64);
     this.setState({
       //predictions: predictions.outputs[0].data.concepts,
-      predictions: 'computer',
+      predictions: 'herb',
       capturedImage: resized.uri,
-      translatedLabel: 'ordenador',
+      translatedLabel: 'hierba',
     })
     //this.translate();
     this.toggleImageModal();

@@ -1,13 +1,13 @@
 export var Color = {
   lightBlue: '#99DCF5',
   darkBlue: '#17598D',
+  neonBlue: '#51D4FE',
   gray: '#E4E4E4',
   black: '#393939',
-  brown: '#CD7F32',
   darkGray: '#C0C0C0',
-  yellow: '#FFD700',
-  green: '#2CD13D',
-  purple: '#C82AAD',
-  white: '#FFFFFF',
-  darkBlack: '#000000'
+  yellow: '#FFCC00',
+  white: '#F4F4F4',
+  darkBlack: '#000000',
+  lightOrange: '#F5BC5F',
+  progressBarOrange: '#FFCB76',
 };

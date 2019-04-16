@@ -21,8 +21,12 @@ export default class Challenge extends React.Component {
             <Text style={styles.challengeTitle}>{this.props.title}</Text>
           </View>
           <ProgressBar style={styles.progressBar} progress={this.props.progress} />
-          <View>
-            <Text style={styles.challengePoints}>Points: {this.props.points}</Text>
+          <View style={styles.pointsContainer}>
+            <Text style={styles.pointsText}>{this.props.points} </Text>
+            <Icon.MaterialCommunityIcons
+              name='coin'
+              size={17}
+            />
           </View>
         </View>
       </View>
@@ -33,32 +37,38 @@ export default class Challenge extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    borderBottomColor: 'grey',
-    borderBottomWidth: 0.25,
+    alignItems: 'center',
+    borderBottomColor: Color.gray,
+    borderBottomWidth: 0.40,
     width: '100%',
-    height: 80,
+    height: 110,
     paddingLeft: 13,
   },
   infoContainer: {
     flexDirection: 'column',
     marginLeft: 24,
-    backgroundColor: 'transparent'
   },
   challengeTitle: {
-    fontSize: 17,
-    color: 'black',
-    marginTop: 10,
+    fontSize: 20,
+    color: Color.black,
+    fontWeight: '400'
   },
-  challengePoints: {
-    fontSize: 12,
-    color: 'black',
-    marginTop: 10,
+  pointsContainer: {
+    flexDirection: 'row',
+  },
+  pointsText: {
+    fontSize: 15,
+    color: Color.black,
+    fontWeight: 'bold'
   },
   progressBar: {
-    marginLeft: 15,
-    backgroundColor: 'white',
+    backgroundColor: Color.progressBarOrange,
+    borderColor: Color.gray,
+    borderWidth: 0.5,
+    borderRadius: 10,
     marginTop: 10,
-    transform: [{ scaleX: 1.19 }, { scaleY: 1.25 }],
+    marginBottom: 10,
+    marginLeft: 35,
+    transform: [{ scaleX: 1.5 }, { scaleY: 4 }],
   },
 });

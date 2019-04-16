@@ -18,7 +18,21 @@ export default class ChallengesScreen extends React.Component {
     header: null
   }
 
+  renderStar = (stars, index) => {
+    stars.push(
+      <Icon.Ionicons
+        name='ios-star'
+        key={index}
+        size={30}
+        color={Color.yellow}
+      />
+    );
+  }
+
   render() {
+    var stars = [];
+    for(let i=0; i<5; i++)
+      this.renderStar(stars, i);
     return (
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle='light-content' />
@@ -29,38 +43,14 @@ export default class ChallengesScreen extends React.Component {
           />        
           <View style={styles.profileStatsContainer}>
             <View>
-              <Text style={{fontSize:21, color:'black'}}>Level: Master</Text>
+              <Text style={styles.profileLevelText}>Level: Master</Text>
             </View>
             <ProgressBar style={styles.profileProgressBar} progress={1/2} />
             <View>
-              <Text style={{fontSize:14, color: 'black'}}>5,000/10,000</Text>
+              <Text style={styles.profileProgressText}>5,000/10,000</Text>
             </View>
             <View style={styles.profileLevelContainer}>
-              <Icon.Ionicons
-                name='ios-star'
-                size={30}
-                color='yellow'
-              />
-              <Icon.Ionicons
-                name='ios-star'
-                size={30}
-                color='yellow'
-              />
-              <Icon.Ionicons
-                name='ios-star'
-                size={30}
-                color='yellow'
-              />
-              <Icon.Ionicons
-                name='ios-star'
-                size={30}
-                color='yellow'
-              />
-              <Icon.Ionicons
-                name='ios-star'
-                size={30}
-                color='yellow'
-              />
+              {stars}
             </View>
           </View>
           <Image 
@@ -90,6 +80,7 @@ export default class ChallengesScreen extends React.Component {
             progress={2/3}
             points={200}
           />
+          {/*
           <Challenge
             source= {require('../assets/images/broccoli.png')}
             title='Find 7 vegetables'
@@ -102,6 +93,7 @@ export default class ChallengesScreen extends React.Component {
             progress={5/7}
             points={400}
           />
+          */}
           <View style={styles.subheaderContainer2}>
             <Text style={styles.subheaderText}>Lifetime Challenges</Text>
           </View>
@@ -143,8 +135,6 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 60,
-    borderBottomWidth: 0,
-    borderBottomColor: 'green',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -160,14 +150,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 0.35,
-    borderBottomColor: 'grey',
+    borderBottomColor: Color.gray,
     paddingTop: 10
   },
   profileStatsContainer: {
     flexDirection: 'column',
   },
+  profileLevelText: {
+    fontSize: 15,
+    color: Color.black,
+    fontWeight: '600'
+  },
+  profileProgressText: {
+    fontSize: 12,
+    color: Color.black,
+    fontWeight: '400'
+  },
   profileProgressBar: {
-    color: 'green',
+    backgroundColor: Color.progressBarOrange,
+    borderColor: Color.gray,
     transform: [{ scaleX: 1.0 }, { scaleY: 1.25 }],
   },
   profileLevelContainer: {
@@ -184,12 +185,12 @@ const styles = StyleSheet.create({
     height: 85, 
   },
   subheaderContainer1: {
-    backgroundColor: '#FFBA49',
+    backgroundColor: Color.lightOrange,
     width: '100%',
     alignItems: 'center',
   },
   subheaderContainer2: {
-    backgroundColor: '#2BD9FE',
+    backgroundColor: Color.neonBlue,
     width: '100%',
     alignItems: 'center',
   },
