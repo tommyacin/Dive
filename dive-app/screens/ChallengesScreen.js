@@ -49,9 +49,7 @@ export default class ChallengesScreen extends React.Component {
             <View>
               <Text style={styles.profileProgressText}>5,000/10,000</Text>
             </View>
-            <View style={styles.profileLevelContainer}>
-              {stars}
-            </View>
+            <View style={styles.profileLevelContainer}>{stars}</View>
           </View>
           <Image 
             style={styles.trophyImage}
@@ -199,9 +197,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     marginTop: 5,
     marginBottom: 5,
-    //paddingTop: 10,
-    //fontFamily: 'AlNile-Bold'
-    //fontFamily: 'AppleSDGothicNeo-Medium'
     fontFamily: 'Arial Rounded MT Bold',
   },
   ScrollViewContainer: {

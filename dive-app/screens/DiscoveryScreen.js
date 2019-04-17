@@ -3,9 +3,7 @@ import { StyleSheet } from 'react-native';
 import {
   Text,
   View,
-  TouchableOpacity,
   Image,
-  Button,
   Picker,
   StatusBar,
   SafeAreaView,
@@ -14,7 +12,6 @@ import Modal from 'react-native-modal';
 import { Camera, Permissions, ImageManipulator, Icon, Speech } from 'expo';
 
 import { Color } from '../assets/Colors';
-import PickerLanguages from '../components/PickerLanguages'; 
 
 const Clarifai = require('clarifai');
 const clarifai = new Clarifai.App({
@@ -66,10 +63,9 @@ export default class DiscoveryScreen extends React.Component {
   }
 
   translate = async () => {
-    console.log('in translate')
     console.log(this.state.predictions[0]);
-    //const query = this.state.predictions[0].name; //REMEMBER TO CHANGE
-    const query = this.state.predictions;
+    const query = this.state.predictions[0].name; //REMEMBER TO CHANGE
+    //const query = this.state.predictions;
     const from = this.state.fromLang;
     const to = this.state.toLang;
 
@@ -81,7 +77,6 @@ export default class DiscoveryScreen extends React.Component {
   }
 
   capturePhoto = async () => {
-    console.log('in capture photo')
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
       return photo.uri;
@@ -89,7 +84,6 @@ export default class DiscoveryScreen extends React.Component {
   };
 
   resize = async (photo) => {
-    console.log('in resize')
     let manipulatedImage = await ImageManipulator.manipulateAsync(
       photo,
       [{ resize: { height: 300, width: 300 } }],
@@ -99,7 +93,6 @@ export default class DiscoveryScreen extends React.Component {
   };
 
   predict = async (image) => {
-    console.log('in predict')
     let predictions = await clarifai.models.predict(
       Clarifai.GENERAL_MODEL,
       image
@@ -113,12 +106,12 @@ export default class DiscoveryScreen extends React.Component {
     let resized = await this.resize(photo);
     let predictions = await this.predict(resized.base64);
     this.setState({
-      //predictions: predictions.outputs[0].data.concepts,
-      predictions: 'herb',
+      predictions: predictions.outputs[0].data.concepts,
+      //predictions: 'herb',
       capturedImage: resized.uri,
-      translatedLabel: 'hierba',
+      //translatedLabel: 'hierba',
     })
-    //this.translate();
+    this.translate();
     this.toggleImageModal();
   };
 
@@ -194,7 +187,6 @@ export default class DiscoveryScreen extends React.Component {
             <View style={styles.languageModal}>
               <Picker
                 style={styles.languagePicker}
-                itemStyle={styles.languagePickerItems}
                 selectedValue={this.state.toLang}
                 onValueChange={(itemValue) => this.setState({toLang: itemValue})}
               >
@@ -278,8 +270,5 @@ const styles = StyleSheet.create({
   },
   languagePicker: {
     width:'100%',
-  },
-  languagePickerItems: {
-
   },
 });

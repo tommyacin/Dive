@@ -1,7 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { Icon } from 'react-native-vector-icons/Ionicons';
 
 import TabBarIcon from '../components/TabBarIcon';
 
@@ -91,7 +89,7 @@ export default createBottomTabNavigator({
   //ProfileStack,
   ChallengesStack,
   DiscoveryStack,
-  DictionaryStack,
+  //DictionaryStack,
   //SettingsStack,
 },
 {
