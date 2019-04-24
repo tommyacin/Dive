@@ -8,6 +8,7 @@ import {
   StatusBar
 } from 'react-native';
 import Modal from 'react-native-modal';
+import { Color } from '../assets/Colors';
 
 export default class TeacherScreen extends React.Component {
   static navigationOptions = {

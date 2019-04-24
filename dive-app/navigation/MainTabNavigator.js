@@ -74,7 +74,7 @@ const TeacherStack = createStackNavigator({
   Teacher: TeacherScreen,
 });
 
-SettingsStack.navigationOptions = {
+TeacherStack.navigationOptions = {
   tabBarLabel: 'Teacher',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -90,7 +90,7 @@ export default createBottomTabNavigator({
   ChallengesStack,
   DiscoveryStack,
   DictionaryStack,
-  SettingsStack,
+  TeacherStack,
 },
 {
   tabBarOptions: {
