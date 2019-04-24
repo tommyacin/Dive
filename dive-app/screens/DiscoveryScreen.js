@@ -169,12 +169,14 @@ export default class DiscoveryScreen extends React.Component {
               <Image source={{uri: this.state.capturedImage}} style={styles.capturedImage}></Image>
               <View style={styles.labelContainer}>
                 <Text style={styles.labelText}>{this.state.translatedLabel}</Text>
+                {/*}
                 <Icon.Ionicons
                   name='ios-volume-high'
                   size={50}
                   onPress={this.pronounce}
                   color={Color.white}
                 />
+                */}
               </View>
             </View>
           </Modal>

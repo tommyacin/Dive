@@ -3,7 +3,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 
-import SettingsScreen from '../screens/SettingsScreen';
+import TeacherScreen from '../screens/TeacherScreen';
 import DiscoveryScreen from '../screens/DiscoveryScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import DictionaryScreen from "../screens/DictionaryScreen"
@@ -70,16 +70,16 @@ DictionaryStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const TeacherStack = createStackNavigator({
+  Teacher: TeacherScreen,
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Teacher',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name='ios-globe'
+      name='ios-school'
       size={24}
     />
   ),
@@ -89,8 +89,8 @@ export default createBottomTabNavigator({
   //ProfileStack,
   ChallengesStack,
   DiscoveryStack,
-  //DictionaryStack,
-  //SettingsStack,
+  DictionaryStack,
+  SettingsStack,
 },
 {
   tabBarOptions: {
