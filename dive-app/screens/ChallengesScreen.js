@@ -78,7 +78,7 @@ export default class ChallengesScreen extends React.Component {
             progress={2/3}
             points={200}
           />
-          {/*
+          
           <Challenge
             source= {require('../assets/images/broccoli.png')}
             title='Find 7 vegetables'
@@ -91,7 +91,7 @@ export default class ChallengesScreen extends React.Component {
             progress={5/7}
             points={400}
           />
-          */}
+         
           <View style={styles.subheaderContainer2}>
             <Text style={styles.subheaderText}>Lifetime Challenges</Text>
           </View>

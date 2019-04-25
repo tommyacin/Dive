@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   section: {
     height: 35,
-    backgroundColor: '#eee',
+    backgroundColor: Color.white,
     width: '100%'
   },
   gridView: {
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 27,
     fontWeight: '900',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: Color.white,
     color: '#FFBA49', //Yellow
     paddingLeft: 20,
     borderBottomWidth: 15,
