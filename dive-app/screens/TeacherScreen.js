@@ -50,7 +50,7 @@ export default class TeacherScreen extends React.Component {
             <View style={styles.classesModal}>
               <Picker
                 style={styles.classesPicker}
-                selectedValue={this.state.classesCode}
+                selectedValue={this.state.class}
                 onValueChange={(itemValue) => this.setState({class: itemValue})}
               >
                 <Picker.Item label="Spanish 101" value="Spanish 101" />
