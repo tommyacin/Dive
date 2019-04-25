@@ -24,16 +24,16 @@ export default class DictionaryScreen extends React.Component {
     super(props);
     this.state = {
       items: [
-        { id: 0, name: 'Agua', source: require('../assets/images/water.jpg'), color: '#FF4F66'},  //water
-        { id: 1, name: 'Ananá', source: require('../assets/images/pineapple.jpg'), color: '#FF4F66'}, //pineapple
-        { id: 2, name: 'Águila', source: require('../assets/images/eagle.jpg'), color: '#FF4F66'},  //eagle
-        { id: 3, name: 'Barco', source: require('../assets/images/boat.jpg'), color: '#23F0C7'}, //boat
-        { id: 4, name: 'Bota', source: require('../assets/images/boot.jpg'), color: '#23F0C7'},  //boot
-        { id: 5, name: 'Balón', source: require('../assets/images/ball.jpg'), color: '#23F0C7'}, //ball
-        { id: 6, name: 'Choclo', source: require('../assets/images/corn.jpg'), color: '#2BD9FE'},  //corn
-        { id: 7, name: 'Carro', source: require('../assets/images/car.jpg'), color: '#2BD9FE'}, //car
-        { id: 8, name: 'Camisa', source: require('../assets/images/shirt.jpg'), color: '#2BD9FE'},  //shirt
-        { id: 9, name: 'Dados', source: require('../assets/images/dice.jpg'), color: '#FFE347'},  //dice
+        { id: 0, name: 'Agua', source: require('../assets/images/water.jpg'), color: '#FF4F66', example: 'Me puedes llenar el baso con agua por favor?'},  //water
+        { id: 1, name: 'Ananá', source: require('../assets/images/pineapple.jpg'), color: '#FF4F66', example: ''}, //pineapple
+        { id: 2, name: 'Águila', source: require('../assets/images/eagle.jpg'), color: '#FF4F66', example: ''},  //eagle
+        { id: 3, name: 'Barco', source: require('../assets/images/boat.jpg'), color: '#23F0C7', example: ''}, //boat
+        { id: 4, name: 'Bota', source: require('../assets/images/boot.jpg'), color: '#23F0C7', example: ''},  //boot
+        { id: 5, name: 'Balón', source: require('../assets/images/ball.jpg'), color: '#23F0C7', example: ''}, //ball
+        { id: 6, name: 'Choclo', source: require('../assets/images/corn.jpg'), color: '#2BD9FE', example: ''},  //corn
+        { id: 7, name: 'Carro', source: require('../assets/images/car.jpg'), color: '#2BD9FE', example: ''}, //car
+        { id: 8, name: 'Camisa', source: require('../assets/images/shirt.jpg'), color: '#2BD9FE', example: ''},  //shirt
+        { id: 9, name: 'Dados', source: require('../assets/images/dice.jpg'), color: '#FFE347', example: ''},  //dice
       ],
     }
   }
@@ -58,6 +58,7 @@ export default class DictionaryScreen extends React.Component {
               word={item.name}
               source={item.source}
               backgroundColor={item.color}
+              example={item.example}
             />
           )}
           renderSectionHeader={({ section }) => (

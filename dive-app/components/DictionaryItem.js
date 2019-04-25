@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import { Icon, Speech } from 'expo';
 import Modal from 'react-native-modal';
-import { Icon } from 'expo';
 import { Color } from '../assets/Colors';
 
 export default class DictionaryItem extends React.Component {
@@ -21,6 +21,16 @@ export default class DictionaryItem extends React.Component {
 
   toggleItemModal = () => {
     this.setState({ isItemVisible: !this.state.isItemVisible });
+  }
+
+  pronounce = () => {
+    Speech.speak(
+      text=this.props.word,
+      options={
+        language: 'es',
+        rate: 0.6
+      }
+    );
   }
 
   render() {
@@ -47,10 +57,17 @@ export default class DictionaryItem extends React.Component {
                 color={Color.white}
               />  
             </View>
-            <Text style={styles.itemModalText}>{this.props.word}</Text>
             <Image
               source={this.props.source}
               style={styles.itemModalImage}
+            />
+            <Text style={styles.itemModalText}>{this.props.word}</Text>
+            <Text style={styles.itemModalExampleText}>{this.props.example}</Text>
+            <Icon.Ionicons
+              name='ios-volume-high'
+              size={50}
+              onPress={this.pronounce}
+              color={Color.white}
             />
           </View>
         </Modal>
@@ -125,10 +142,17 @@ const styles = StyleSheet.create({
     color: Color.lightBlue,
     lineHeight: 40,
     textAlign: 'center',
+    paddingTop: 10,
+  },
+  itemModalExampleText: {
+    fontSize: 20,
+    color: Color.lightBlue,
+    lineHeight: 40,
+    textAlign: 'center',
   },
   itemModalImage: {
-    height: '70%',
-    width: '80%',
+    height: '60%',
+    width: '70%',
     borderRadius: 15
   },
   imageCloseIcon: {

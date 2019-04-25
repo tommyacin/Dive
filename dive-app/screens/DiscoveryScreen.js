@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     color: Color.lightBlue,
     lineHeight: 40,
     textAlign: 'center',
-    marginRight: 40
+    //marginRight: 40
   },
   languageModal: {
     flexDirection: 'column',
