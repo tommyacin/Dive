@@ -67,9 +67,15 @@ export default class TeacherScreen extends React.Component {
           </Modal>
 
           <View style={styles.subheaderContainer}>
+            <View style={styles.subheaderTextContainer}>
               <Text style={styles.subheaderText}>Attendance</Text>
+            </View>
+            <View style={styles.subheaderTextContainer}>
               <Text style={ [styles.subheaderText, {color:'orange'}, {textDecorationLine: 'underline'}] }>Roster</Text>
+            </View>
+            <View style={styles.subheaderTextContainer}>
               <Text style={styles.subheaderText}>Assign</Text>
+            </View>
             </View>
 
           <ScrollView
@@ -185,6 +191,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial Rounded MT Bold',
     paddingTop: 15,
   },
+  subheaderTextContainer: {
+    flex: 1,
+  },
   subheaderContainer: {
     width: '100%',
     backgroundColor: Color.gray,
@@ -193,11 +202,11 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   subheaderText: {
-    fontSize: 17,
+    fontSize: 13.5,
     color: '#585858',
     fontFamily: 'Arial Rounded MT Bold',
-    paddingRight: 32,
-    paddingLeft: 30,
+    marginRight: 19,
+    marginLeft: 29,
     paddingBottom: 10,
   },
   studentComponent: {
