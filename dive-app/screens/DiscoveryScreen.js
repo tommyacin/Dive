@@ -249,8 +249,8 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   capturedImage: {
-    height: '85%',
-    width: '90%',
+    height: '60%',
+    width: '60%',
     borderRadius: 15
   },
   labelContainer: {

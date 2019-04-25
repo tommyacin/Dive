@@ -76,7 +76,7 @@ export default class TeacherScreen extends React.Component {
             <View style={styles.subheaderTextContainer}>
               <Text style={styles.subheaderText}>Assign</Text>
             </View>
-            </View>
+          </View>
 
           <ScrollView
             showsVerticalScrollIndicator={true}
@@ -193,11 +193,14 @@ const styles = StyleSheet.create({
   },
   subheaderTextContainer: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   subheaderContainer: {
     width: '100%',
     backgroundColor: Color.gray,
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     paddingTop: 30,
   },
@@ -205,8 +208,6 @@ const styles = StyleSheet.create({
     fontSize: 13.5,
     color: '#585858',
     fontFamily: 'Arial Rounded MT Bold',
-    marginRight: 19,
-    marginLeft: 29,
     paddingBottom: 10,
   },
   studentComponent: {
